@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Road Damage Detection</string>
+    <string name="gpu">GPU</string>
+    <string name="start_button">Start</string>
+    <string name="title">Deteksi Kerusakan Jalan</string>
+
+</resources>
