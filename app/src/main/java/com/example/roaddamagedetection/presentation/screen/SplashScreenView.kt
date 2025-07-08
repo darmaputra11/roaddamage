@@ -22,7 +22,7 @@ fun SplashScreenView(onTimeout: () -> Unit) {
 
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.primary
+        color = MaterialTheme.colorScheme.tertiary
     ) {
         Box(
             contentAlignment = Alignment.Center,

@@ -10,6 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.roaddamagedetection.presentation.navigation.Screen
 import com.example.roaddamagedetection.presentation.screen.HomeScreen
 import com.example.roaddamagedetection.presentation.screen.HistoryScreen
+import com.example.roaddamagedetection.presentation.screen.LoginScreen
 import com.example.roaddamagedetection.presentation.screen.ProfileScreen
 import com.example.roaddamagedetection.presentation.screen.SplashScreenView
 import com.example.roaddamagedetection.presentation.ui.RoadDamageDetectionTheme
@@ -27,11 +28,16 @@ class FirstActivity : ComponentActivity() {
                 ) {
                     composable(Screen.Splash.route) {
                         SplashScreenView {
-                            navController.navigate(Screen.Home.route) {
+                            navController.navigate(Screen.Login.route) {
                                 popUpTo(Screen.Splash.route) { inclusive = true }
                             }
                         }
                     }
+
+                    composable(Screen.Login.route) {
+                        LoginScreen(navController)
+                    }
+
 
                     composable(Screen.Home.route) {
                         HomeScreen(navController)
@@ -48,7 +54,7 @@ class FirstActivity : ComponentActivity() {
                     }
 
                     composable(Screen.Profile.route) {
-                        ProfileScreen()
+                        ProfileScreen(navController)
                     }
                 }
             }
