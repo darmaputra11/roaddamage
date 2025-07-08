@@ -60,6 +60,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.splashscreen)
     // CameraX
     implementation(libs.camera.camera2)
     implementation(libs.camera.lifecycle)
