@@ -8,3 +8,8 @@ val Pink80 = Color(0xFFFF80AB)
 val Pink40 = Color(0xFFFF4081)
 val PrimaryLight = Color(0xFF6750A4)
 val PrimaryDark = Color(0xFF381E72)
+val BackgroundBase = Color(0xFF126682)
+val PrimaryButton = Color(0xFF8C63EE)
+val BaseColor = Color(0xFF126682)
+
+

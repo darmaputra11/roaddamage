@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import com.example.roaddamagedetection.R
 import com.example.roaddamagedetection.presentation.ui.RoadDamageDetectionTheme
+import com.example.roaddamagedetection.presentation.ui.BackgroundBase
 
 @Composable
 fun SplashScreenView(onTimeout: () -> Unit) {
@@ -22,7 +23,7 @@ fun SplashScreenView(onTimeout: () -> Unit) {
 
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.tertiary
+        color = BackgroundBase
     ) {
         Box(
             contentAlignment = Alignment.Center,

@@ -13,6 +13,10 @@ import com.example.roaddamagedetection.presentation.screen.HistoryScreen
 import com.example.roaddamagedetection.presentation.screen.LoginScreen
 import com.example.roaddamagedetection.presentation.screen.ProfileScreen
 import com.example.roaddamagedetection.presentation.screen.SplashScreenView
+import com.example.roaddamagedetection.presentation.screen.WelcomeScreen
+import com.example.roaddamagedetection.presentation.screen.RegisterScreen
+import com.example.roaddamagedetection.presentation.screen.EditProfileScreen
+import com.example.roaddamagedetection.presentation.screen.MainScreen
 import com.example.roaddamagedetection.presentation.ui.RoadDamageDetectionTheme
 
 class FirstActivity : ComponentActivity() {
@@ -28,7 +32,7 @@ class FirstActivity : ComponentActivity() {
                 ) {
                     composable(Screen.Splash.route) {
                         SplashScreenView {
-                            navController.navigate(Screen.Login.route) {
+                            navController.navigate(Screen.WelcomeScreen.route) {
                                 popUpTo(Screen.Splash.route) { inclusive = true }
                             }
                         }
@@ -38,23 +42,34 @@ class FirstActivity : ComponentActivity() {
                         LoginScreen(navController)
                     }
 
+                    composable(Screen.Main.route) {
+                        MainScreen(navController) // navController dari FirstActivity
+                    }
+
 
                     composable(Screen.Home.route) {
                         HomeScreen(navController)
                     }
 
-                    composable(Screen.Camera.route) {
-                        // Navigasi ke activity XML
-                        val intent = Intent(this@FirstActivity, com.example.roaddamagedetection.MainActivity::class.java)
-                        startActivity(intent)
-                    }
 
                     composable(Screen.History.route) {
-                        HistoryScreen()
+                        HistoryScreen(navController)
                     }
 
                     composable(Screen.Profile.route) {
                         ProfileScreen(navController)
+                    }
+
+                    composable(Screen.WelcomeScreen.route) {
+                        WelcomeScreen(navController)
+                    }
+
+                    composable(Screen.RegisterScreen.route) {
+                        RegisterScreen(navController)
+                    }
+
+                    composable(Screen.EditProfileScreen.route) {
+                        EditProfileScreen(navController)
                     }
                 }
             }

@@ -27,25 +27,19 @@ import androidx.navigation.compose.rememberNavController
 import com.example.roaddamagedetection.presentation.ui.RoadDamageDetectionTheme
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.TextButton
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
 import com.example.roaddamagedetection.R
-import com.example.roaddamagedetection.presentation.ui.BaseColor
 import com.example.roaddamagedetection.presentation.ui.PrimaryButton
+import com.example.roaddamagedetection.presentation.ui.BaseColor
 
 @Composable
-fun LoginScreen(navController: NavHostController) {
-    var username by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-
+fun WelcomeScreen(navController: NavHostController) {
     Column(
         modifier = Modifier
             .background(BaseColor)
@@ -54,39 +48,47 @@ fun LoginScreen(navController: NavHostController) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
+        // Logo
         Image(
             painter = painterResource(id = R.drawable.splashlogo),
             contentDescription = "App Logo",
             modifier = Modifier
-                .width(250.dp)
-                .height(250.dp)
+                .width(400.dp)
+                .height(400.dp)
         )
+
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        TextField(
-            value = username,
-            onValueChange = { username = it },
-            label = { Text("Username") },
-            modifier = Modifier.fillMaxWidth()
+        // Teks selamat datang
+        Text(
+            text = "Welcome to DIJARIKU",
+            fontSize = 28.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.White,
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Start
+
         )
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(8.dp))
 
-        TextField(
-            value = password,
-            onValueChange = { password = it },
-            label = { Text("Password") },
-            modifier = Modifier.fillMaxWidth()
+        Text(
+            text = "Membantu melaporkan jalanan rusak dengan mudah",
+            fontSize = 16.sp,
+            color = Color.White,
+            style = TextStyle(lineHeight = 20.sp),
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Start
         )
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(32.dp))
 
+        // Tombol ungu (Login)
         Button(
             onClick = {
-                navController.navigate(Screen.Main.route) {
-                    popUpTo(Screen.Login.route) { inclusive = true } // optional agar tidak bisa kembali ke login dengan back
-                }
+                navController.navigate(Screen.Login.route)
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -101,37 +103,29 @@ fun LoginScreen(navController: NavHostController) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Start,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = "Belum punya akun? ",
-                color = Color.White,
-                modifier = Modifier.alignByBaseline()
+        // Tombol putih (Login alternatif)
+        Button(
+            onClick = {
+                navController.navigate(Screen.RegisterScreen.route)
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(48.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.White,
+                contentColor = Color.Black
             )
-
-            TextButton(
-                onClick = { navController.navigate(Screen.RegisterScreen.route) },
-                contentPadding = PaddingValues(0.dp),
-                modifier = Modifier.alignByBaseline()
-            ) {
-                Text(
-                    text = "Daftar Disini",
-                    color = Color.White,
-                    textDecoration = TextDecoration.Underline
-                )
-            }
+        ) {
+            Text("Register")
         }
-
     }
 }
 
+
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun LoginScreenView() {
+fun WelcomeScreen() {
     RoadDamageDetectionTheme {
-        LoginScreen(navController = rememberNavController())
+        WelcomeScreen(navController = rememberNavController())
     }
 }

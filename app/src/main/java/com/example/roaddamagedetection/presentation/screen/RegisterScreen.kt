@@ -30,9 +30,17 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
@@ -41,25 +49,52 @@ import com.example.roaddamagedetection.R
 import com.example.roaddamagedetection.presentation.ui.BaseColor
 import com.example.roaddamagedetection.presentation.ui.PrimaryButton
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(navController: NavHostController) {
+fun RegisterScreen(navController: NavHostController) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var confirmationpassword by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
             .background(BaseColor)
             .fillMaxSize()
-            .padding(24.dp),
-        verticalArrangement = Arrangement.Center,
+    ) {
+        // ⬇️ Tambahkan TopAppBar di bagian paling atas
+        TopAppBar(
+            title = { },
+            navigationIcon = {
+                IconButton(onClick = { navController.popBackStack() }) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "Back",
+                        tint = Color.White
+                    )
+                }
+            },
+            colors = TopAppBarDefaults.topAppBarColors(
+                containerColor = Color.Transparent,
+                navigationIconContentColor = Color.White
+            )
+        )
+
+    Column(
+        modifier = Modifier
+            .background(BaseColor)
+            .fillMaxSize()
+            .padding(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.splashlogo),
-            contentDescription = "App Logo",
-            modifier = Modifier
-                .width(250.dp)
-                .height(250.dp)
+        Text(
+            text = "Daftar",
+            fontSize = 28.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.White,
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Start
+
         )
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -74,6 +109,15 @@ fun LoginScreen(navController: NavHostController) {
         Spacer(modifier = Modifier.height(24.dp))
 
         TextField(
+            value = email,
+            onValueChange = { email = it },
+            label = { Text("Email") },
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        TextField(
             value = password,
             onValueChange = { password = it },
             label = { Text("Password") },
@@ -82,11 +126,20 @@ fun LoginScreen(navController: NavHostController) {
 
         Spacer(modifier = Modifier.height(24.dp))
 
+        TextField(
+            value = confirmationpassword,
+            onValueChange = { confirmationpassword = it },
+            label = { Text("Konfirmasi Password") },
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+
+
         Button(
             onClick = {
-                navController.navigate(Screen.Main.route) {
-                    popUpTo(Screen.Login.route) { inclusive = true } // optional agar tidak bisa kembali ke login dengan back
-                }
+                navController.navigate(Screen.Login.route)
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -96,7 +149,7 @@ fun LoginScreen(navController: NavHostController) {
                 contentColor = Color.White
             )
         ) {
-            Text("Login")
+            Text("Daftar")
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -107,31 +160,32 @@ fun LoginScreen(navController: NavHostController) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Belum punya akun? ",
+                text = "Sudah punya akun? ",
                 color = Color.White,
                 modifier = Modifier.alignByBaseline()
             )
 
             TextButton(
-                onClick = { navController.navigate(Screen.RegisterScreen.route) },
+                onClick = { navController.navigate(Screen.Login.route) },
                 contentPadding = PaddingValues(0.dp),
                 modifier = Modifier.alignByBaseline()
             ) {
                 Text(
-                    text = "Daftar Disini",
+                    text = "Masuk",
                     color = Color.White,
                     textDecoration = TextDecoration.Underline
                 )
             }
         }
+    }
 
     }
 }
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun LoginScreenView() {
+fun RegisterScreenView() {
     RoadDamageDetectionTheme {
-        LoginScreen(navController = rememberNavController())
+        RegisterScreen(navController = rememberNavController())
     }
 }

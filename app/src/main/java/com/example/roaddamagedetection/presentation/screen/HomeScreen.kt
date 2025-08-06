@@ -24,103 +24,81 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.roaddamagedetection.R
 import androidx.navigation.compose.rememberNavController
 import com.example.roaddamagedetection.MainActivity
 import com.example.roaddamagedetection.presentation.navigation.Screen
 import com.example.roaddamagedetection.presentation.ui.RoadDamageDetectionTheme
+import androidx.compose.ui.graphics.Color
+import androidx.navigation.NavHostController
+import androidx.compose.foundation.Image
+import androidx.compose.ui.res.painterResource
+
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen(navController: NavHostController) {
     val context = LocalContext.current
-    val menuItems = listOf(
-        Triple(Icons.Default.Add, "Rekam Jalan", {
-            // Intent to MainActivity
-            val intent = Intent(context, com.example.roaddamagedetection.MainActivity::class.java)
-            context.startActivity(intent)
-        }),
-        Triple(Icons.Default.Search, "History", {
-            navController.navigate(Screen.History.route)
-        })
-    )
 
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
-                    Text(
-                        text = "Road Damage Detection",
-                        fontWeight = FontWeight.Bold
-                    )
+                    Text(text = "Rekam")
                 },
-                actions = {
-                    IconButton(onClick = {
-                        navController.navigate(Screen.Profile.route)
-                    }) {
-                        Icon(
-                            imageVector = Icons.Default.Person,
-                            contentDescription = "Profile"
-                        )
-                    }
-                }
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor = Color.White
+                ),
             )
         }
-    ) { innerPadding ->
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
+    ) { padding ->
+        Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding)
-                .padding(16.dp)
-                .padding(top = 78.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+                .padding(padding)
+                .padding(24.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            items(menuItems) { (icon, label, action) ->
-                HomeButton(
-                    icon = icon,
-                    label = label,
-                    onClick = action
+            // Logo
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(200.dp),
+                shape = RoundedCornerShape(16.dp),
+                colors = CardDefaults.cardColors(containerColor = Color(0xFF126682))
+            ) {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Image(
+                        painter = painterResource(id = R.drawable.splashlogo),
+                        contentDescription = "DIJARIKU Logo",
+                        modifier = Modifier.height(160.dp)
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(32.dp))
+
+            Button(
+                onClick = {
+                    // ✅ Intent ke MainActivity (kamera)
+                    val intent = Intent(context, MainActivity::class.java)
+                    context.startActivity(intent)
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(48.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFF8C63EE),
+                    contentColor = Color.White
                 )
+            ) {
+                Text("Mulai Rekam")
             }
         }
     }
 }
 
-@Composable
-fun HomeButton(
-    icon: ImageVector,
-    label: String,
-    onClick: () -> Unit
-) {
-    Card(
-        modifier = Modifier
-            .size(150.dp)
-            .clickable(onClick = onClick),
-        shape = RoundedCornerShape(16.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
-    ) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Icon(
-                imageVector = icon,
-                contentDescription = label,
-                modifier = Modifier.size(48.dp),
-                tint = MaterialTheme.colorScheme.primary
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = label,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Medium,
-                textAlign = TextAlign.Center
-            )
-        }
-    }
-}
 
 @Preview(showBackground = true)
 @Composable
